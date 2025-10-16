@@ -68,7 +68,7 @@ public class SignUpAndLoginPageTest {
 
 			  // Enter Email
 			  WebElement signupEmail = driver.findElement(By.cssSelector("[data-qa='signup-email']"));
-			  signupEmail.sendKeys("prashant@gmail.com");
+			  signupEmail.sendKeys("prashants9@gmail.com");
 
 			  // Click Signup Button
 			  WebElement signupButton = driver.findElement(By.xpath("//button[text()='Signup']"));
@@ -97,6 +97,7 @@ public class SignUpAndLoginPageTest {
 	        //Sending the Email 
 //	        driver.findElement(By.cssSelector("input#email")).clear();
 //	        driver.findElement(By.cssSelector("input#email")).sendKeys("prashant@gmail.com");
+	        driver.findElement(By.cssSelector("input#password")).sendKeys("prashant@");
         
 	   
 	        //To Select Date OF birth we will use select class
@@ -121,6 +122,42 @@ public class SignUpAndLoginPageTest {
 	        driver.findElement(By.cssSelector("input#newsletter")).click();
 	        driver.findElement(By.cssSelector("input#optin")).click();
 	        
+	        //Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
+	       // driver.findElement(By.cssSelector("input#first_name")).sendKeys("Prashant Sharma");
+	        
+	        //Data-aq way is more preferable rather than id 
+	      //  driver.findElement(By.cssSelector("[data-qa='first_name']"))
+	        driver.findElement(By.id("first_name")).sendKeys("Prashant");
+	        driver.findElement(By.id("last_name")).sendKeys("Sharma");
+	        driver.findElement(By.id("company")).sendKeys("KPIT Technologies");
+	        driver.findElement(By.id("address1")).sendKeys("KPIT Technologies");
+	        driver.findElement(By.id("address2")).sendKeys("KPIT Technologies");
+	        
+	        Select countryDropdown = new Select(driver.findElement(By.name("country")));
+	        countryDropdown.selectByVisibleText("India");
+	        
+	        driver.findElement(By.id("state")).sendKeys("Uttar Pradesh");
+	        driver.findElement(By.id("city")).sendKeys("Saharanpur");
+	        driver.findElement(By.id("zipcode")).sendKeys("247341");
+	        driver.findElement(By.id("mobile_number")).sendKeys("7351301506");
+	        
+	        WebElement AccountButton= driver.findElement(By.cssSelector("button[data-qa='create-account']"));
+	        System.out.println("Account Button" +AccountButton);
+	       AccountButton.click();
+	       
+	       WebElement successMessage = driver.findElement(By.cssSelector("h2[data-qa='account-created']"));
+	       String actualText = successMessage.getText().trim();
+	       System.out.println(actualText);
+
+	       // Verify the text contains expected message
+	       if (actualText.contains("ACCOUNT CREATED!")) {
+	           System.out.println("TEST CASE PASSED: Account creation successful");
+	       } else {
+	           System.out.println("TEST CASE FAILED: Account creation message not found");
+	           throw new AssertionError("Expected 'Account Created!' but got: " + actualText);
+	       }
+	        
+	        
 		
 		try {
 			Thread.sleep(10000);
@@ -128,7 +165,7 @@ public class SignUpAndLoginPageTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.quit();
+		//driver.quit();
 	}
 
 }
